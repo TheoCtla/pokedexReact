@@ -1,12 +1,13 @@
-import React from 'react';
-import"./PokemonList.css";
+import React from "react";
+import logo from "./assets/logo.svg";
+import "./Logo.css";
 
 const Logo = () => {
-  return (
-    <header>
-        <h1 className='logo' >Logo</h1>
-    </header>
-  );
+   return (
+        <div>
+             <img className="logo" src={logo} alt="./logo" />
+        </div>
+   );
 };
 
 export default Logo;
