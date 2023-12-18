@@ -1,39 +1,45 @@
-import "./PokemonList.css";
+import React, { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard/PokemonCard";
-import { useState, useEffect } from "react";
+import SearchBar from "./SearchBar/SearchBar"; // Assurez-vous que le chemin est correct
+import "./PokemonList.css";
 
-const PokemonList = () => {
-   const [row, setRows] = useState([]);
+const FetchPokemonList = () => {
+   const [pokemons, setPokemons] = useState([]);
+   const [searchTerm, setSearchTerm] = useState("");
+   const { language, changeLanguage } = useContext(languageContext)
 
    useEffect(() => {
       fetch("https://pokedex-jgabriele.vercel.app/pokemons.json")
-         .then((data) => data.json())
-         .then((json) => setRows(json || []));
+         .then((response) => response.json())
+         .then((data) => setPokemons(data || []));
    }, []);
-   console.log(row);
 
-const addZeroToId = (id) => {
-   if (id < 10) {
-      return `No.00${id}`;
-   } else if (id < 100) {
-      return `No.0${id}`;
-   } else {
-      return id;
-   }
-}; 
+   const filteredPokemons = pokemons.filter((pokemon) =>
+      pokemon.names.fr.toLowerCase().includes(searchTerm.toLowerCase())
+   );
+
+   const addZeroToId = (id) => {
+      return `No.${String(id).padStart(3, "0")}`;
+   };
 
    return (
-      <header className='pokemonlist'>
-         {row.map((pokemon) => (
-            <PokemonCard 
-            id={addZeroToId(pokemon.id)}
-            name={pokemon.names.fr} 
-            image={pokemon.image}
-            types={pokemon.types}
-            />
-         ))}
-      </header>
+      <div>
+         {}
+
+         <SearchBar onSearch={setSearchTerm} />
+         <header className='pokemonlist'>
+            {filteredPokemons.map((pokemon) => (
+               <PokemonCard
+                  key={pokemon.id}
+                  id={addZeroToId(pokemon.id)}
+                  name={pokemon.names[language]}
+                  image={pokemon.image}
+                  types={pokemon.types}
+               />
+            ))}
+         </header>
+      </div>
    );
 };
 
-export default PokemonList;
+export default FetchPokemonList;

@@ -3,3 +3,11 @@
     height: 80px;
     width: 100%;
 }
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 25px;
+  margin-right: 25px;
+}
