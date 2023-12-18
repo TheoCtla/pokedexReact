@@ -8,7 +8,7 @@ const Header = () => {
     <header id='header' className='header-container'>
         <div className='header-content'>
             <Logo/>
-            <LanguageSelection />
+            <LanguageSelection/>
         </div>
     </header>
   );

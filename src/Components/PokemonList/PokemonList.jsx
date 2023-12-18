@@ -3,10 +3,10 @@ import PokemonCard from "./PokemonCard/PokemonCard";
 import SearchBar from "./SearchBar/SearchBar"; // Assurez-vous que le chemin est correct
 import "./PokemonList.css";
 
+
 const FetchPokemonList = () => {
    const [pokemons, setPokemons] = useState([]);
    const [searchTerm, setSearchTerm] = useState("");
-   const { language, changeLanguage } = useContext(languageContext)
 
    useEffect(() => {
       fetch("https://pokedex-jgabriele.vercel.app/pokemons.json")
@@ -32,7 +32,7 @@ const FetchPokemonList = () => {
                <PokemonCard
                   key={pokemon.id}
                   id={addZeroToId(pokemon.id)}
-                  name={pokemon.names[language]}
+                  name={pokemon.names.fr}
                   image={pokemon.image}
                   types={pokemon.types}
                />
